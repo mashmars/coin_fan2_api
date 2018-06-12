@@ -1,0 +1,194 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="{$Think.const.PUB_LIB}html5shiv.js"></script>
+<script type="text/javascript" src="{$Think.const.PUB_LIB}respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="{$Think.const.PUB_STATIC}h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="{$Think.const.PUB_STATIC}h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="{$Think.const.PUB_LIB}Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="{$Think.const.PUB_STATIC}h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="{$Think.const.PUB_STATIC}h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="{$Think.const.PUB_LIB}DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<style>
+#address select{width: 80px;height: 30px;border: 1px solid #c0c0c0;}
+#address select option{width: 80px;max-width: 100px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+</style>
+<title>设备管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 设备管理 <span class="c-gray en">&gt;</span> SN管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	
+	<div class="text-c" >
+		<form action=''  method='post' id='form-search'>
+		
+		<label>筛选查询：</label>
+		<span class="select-box inline">			
+			<select name="type" id='field' class="select">
+				<option value="" data-type='' <if condition="$type eq ''">selected</if>>全部类型</option>
+				<option value="1" data-type='' <if condition="$type eq 1">selected</if>>Pos机</option>
+				<option value="2" data-type='' <if condition="$type eq 2">selected</if>>路由器</option>
+			</select>
+		</span>
+		<span class="select-box inline">			
+			<select name="status" id='field' class="select">
+				<option value="" data-type='' <if condition="$status eq ''">selected</if>>全部状态</option>
+				<option value="0" data-type='' <if condition="$status eq '0'">selected</if>>作废</option>
+				<option value="1" data-type='' <if condition="$status eq 1">selected</if>>已发货</option>
+				<option value="2" data-type='' <if condition="$status eq 2">selected</if>>处理中</option>
+			</select>
+		</span>
+		<button type="button" class="btn btn-success radius" id="serach" name=""><i class="Hui-iconfont">&#xe665;</i> 筛选</button>
+		
+		</form>
+	</div>
+	
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		<span class="l">	
+		</span>	
+		<span class="r">共有数据：<strong>{$count}</strong> 条</span> 	
+		
+	</div>
+	
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg ">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="80">ID</th>
+				<th width="100">设备类型</th>								
+				<th width="100">数量</th>								
+				<th width="100">收货人</th>								
+				<th width="100">联系方式</th>	
+				<th width="100">地区</th>								
+				<th width="100">地址</th>								
+				<th width="100">时间</th>								
+				<th width="100">状态</th>								
+				<th width="100">快递公司</th>								
+				<th width="100">快递单号</th>								
+				<th width="170">操作</th>
+			</tr>
+		</thead>
+		<tbody id='tbody'>
+		<volist name='res' id='vo'>
+			<tr class="text-c">
+				<td><input type="checkbox" value="{$vo.id}" name=""></td>
+				<td>{$vo.id}</td>
+				<td><if condition="$vo['type'] eq 1">Pos机<else />路由器</if></td>				
+				<td>{$vo.num}</td>	
+				<td>{$vo.shr}</td>	
+				<td>{$vo.lxfs}</td>				
+				<td>{$vo.area}</td>				
+				<td>{$vo.address}</td>				
+				<td>{$vo.createdate|date='Y-m-d H:i:s',###}</td>				
+						
+				<td>
+				<if condition="$vo.status eq 1">
+				<span class="label label-success radius">已发货</span>
+				<elseif condition="$vo.status eq 2" />
+				<span class="label label-primary radius">未处理</span>
+				<else />
+				<span class="label label-danger radius">已作废</span>
+				</if>
+				</td>
+				<td>{$vo.kuaidi}</td>		
+				<td>{$vo.danhao}</td>						
+				<td class="td-manage">
+				<if condition="$vo.status eq 2">
+				<a style="text-decoration:none" class="btn btn-secondary-outline radius size-MINI" onclick="member_add('编辑','{:U('device/device_shenqing_edit',array('id'=>$vo['id']))}','','510')"   title="编辑">编辑</a>
+				</if>
+				<if condition="$vo.status neq 1">
+				<a style="text-decoration:none" class="btn btn-danger-outline radius size-MINI" onClick="del(this,'{$vo.id}')" href="javascript:;" title="删除">删除</a>
+				</if>
+				</td>
+			</tr>
+		</volist>
+		</tbody>
+		<!--
+		<tr class="text-c" >
+			<td colspan="14" style="text-align:left;">
+			
+				<button type="button" class="btn btn-success radius" id="export" name=""><i class="Hui-iconfont">&#xe644;</i> 导出选中</button>
+				<form id='form-export' style='display:none' action="{:U('user/export')}" method='post'>
+					<textarea id='ids' name='ids'></textarea>
+				</form>
+			</td>
+		</tr>
+		-->
+	</table>
+	</div>
+	<div class='page'>{$page}</div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="{$Think.const.PUB_LIB}jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="{$Think.const.PUB_LIB}layer/2.4/layer.js"></script>
+<script type="text/javascript" src="{$Think.const.PUB_STATIC}h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="{$Think.const.PUB_STATIC}h-ui.admin/js/H-ui.admin.js"></script>
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="{$Think.const.PUB_LIB}My97DatePicker/4.8/WdatePicker.js"></script> 
+
+<script src="{$Think.const.PUB_LIB}a/js/bootstrap.js"></script>
+<script src="{$Think.const.PUB_LIB}a/js/city-picker.data.js"></script>
+<script src="{$Think.const.PUB_LIB}a/js/city-picker.js"></script>
+<script src="{$Think.const.PUB_LIB}a/js/main.js"></script>
+<link href="{$Think.const.PUB_LIB}a/css/city-picker.css" rel="stylesheet" type="text/css" />
+<script>
+
+	
+//查询
+$(function(){
+	
+	$('#serach').click(function(){
+		$('#form-search').submit();
+	})
+	
+	
+})
+
+</script>
+
+<script type="text/javascript">
+
+/*用户-添加*/
+function member_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*用户-查看*/
+function member_show(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+function del(obj,id){
+	layer.confirm('是否确认删除,一经删除，无法恢复',function(){
+		$.ajax({
+			url:"{:U('device/ajax_shenqing_del')}",
+			data:{id:id},
+			type:"post",
+			dataType:"json",
+			success:function(data){
+				if(data.info =='success'){
+					layer.msg(data.msg,{time:2000,icon:6},function(){
+						$(obj).parents('tr').remove();
+					})
+				}else{
+					layer.msg(data.msg,{time:2000,icon:5})
+				}
+			}
+		})
+	})
+}
+
+</script> 
+</body>
+</html>

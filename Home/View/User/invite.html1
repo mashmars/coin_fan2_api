@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
+	<title>邀请好友</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<link rel="stylesheet" href="{$Think.const.PUB_CSS}common.css">
+	<link rel="stylesheet" href="{$Think.const.PUB_CSS}use.css">
+      <style>
+        #qrcode img {margin:0 auto;width:200px;height:200px;}
+      </style>
+	</head>
+	<body>
+		<header>
+	<h3 class="tc lhbg">
+		<i class="go"></i>
+		邀请好友
+	</h3>
+</header>
+		<div class="main invitingFriends"style="padding-bottom:.4rem;">
+			<h3 class="tc">扫描识别二维码注册原力会员</h3>
+			<div class="tc inviting-con">
+				<p>邀请人号码：{$phone|substr=###,0,3}****{$phone|substr=###,7}</p>
+				<p id="qrcode"></p>
+				<h4 onclick="down()"><i class="dw" ></i>长按二维码保存到手机相册</h4>
+			</div>
+			
+			<a id="tttt"></a>
+			<p class="inviting-tips"><em>推广注册：</em>使用推荐码注册后，推荐人钱包即可显示推荐获赠的原力币，在被推荐人成为有效用户（实名认证绑定设备即可成为有效用户）前，该页面显示的值为冻结状态。
+			</p>
+			<p class="inviting-tips"><em>冻结激活：</em>激活获赠的TFC币，需要实名认证并且满足一下2个条件其中一条即可激活，1.免费申请银联刷卡pos机绑定SN到app，下载pos官方app用自己的信息激活pos机单笔首次刷卡5000元/笔，即可激活。(注:POS机绑定均为个人信息资料刷卡到账也是到账到自己银行卡，十分安全）2.app或者官网购买BYL 挖矿路由器绑定SN到app激活即可解锁，激活后增加算力每天路由器在线时长增加TFC挖矿数量
+			</p>
+			<p class="inviting-tips"><em>算力激活：</em>绑定设备同时获得算力值，提高挖矿数量；直接邀请一人增加10算力，间接推荐一人增加5算力，邀请的人越多算力越大！
+			</p>
+		</div>
+	</body>
+	<script src="{$Think.const.PUB_JS}set.js"></script>
+	<script src="{$Think.const.PUB_JS}jquery-1.8.2.min.js"></script>
+	<script src="{$Think.const.PUB_LIB}layer/layer.js"></script>
+	<script src="{$Think.const.PUB_JS}global.js"></script>
+	<script src="{$Think.const.PUB_LIB}qrcode.min.js"></script>
+	<script>
+	$(function(){
+		var url = "http://{$Think.server.HTTP_HOST}/index.php/login/register/mobile/{$phone}.html" ;
+		new QRCode(document.getElementById('qrcode'), url);
+	})
+	
+	/**
+	 * 根据图片生成画布
+	 */
+	function convertImageToCanvas(image) {
+		var canvas = document.createElement("canvas");
+		canvas.width = image.width;
+		canvas.height = image.height;
+		canvas.getContext("2d").drawImage(image, 0, 0);
+		return canvas;
+	}
+	/**
+	 * 下载图片
+	 */
+	function down() {
+		//var sampleImage = $('#qrcode img'),
+		var sampleImage = document.getElementsByTagName("img");
+		var canvas = convertImageToCanvas(sampleImage[0]);
+		
+		url = canvas.toDataURL("image/png");//PNG格式
+		//以下代码为下载此图片功能
+		var triggerDownload = $("#tttt").attr("href", url).attr("download", "myinvite.png");
+		triggerDownload[0].click();
+	//    triggerDownload.remove();
+	}
+	</script>
+		<script src="https://static.ydbimg.com/API/YdbOnline.js" type="text/javascript"></script>
+<script>
+$(function(){
+	var YDB = new YDBOBJ();
+	YDB.SetGlobal(0,0,'','',0,'10/0/0',1,0,'',0,'#efefef');
+})
+</script>
+</html>

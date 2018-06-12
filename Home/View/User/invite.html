@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
+	<title>邀请好友</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<link rel="stylesheet" href="{$Think.const.PUB_CSS}common.css">
+	<link rel="stylesheet" href="{$Think.const.PUB_CSS}use.css">
+      <style>
+        #qrcode img {margin:0 auto;width:200px;height:200px;}
+      </style>
+	</head>
+	<body>
+		<header>
+	<h3 class="tc lhbg">
+		<i class="go"></i>
+		邀请好友
+	</h3>
+</header>
+		<div class="main invitingFriends"style="padding-bottom:.4rem;">
+			<h3 class="tc">扫描识别二维码注册原力会员</h3>
+			<div class="tc inviting-con">
+				<p>邀请人号码：{$phone|substr=###,0,3}****{$phone|substr=###,7}</p>
+				<p id="qrcode">
+					<img src="{:U('user/qrcode')}?url={:U('login/register/mobile/'.$phone,'','.html',true)}" alt="">
+				</p>
+				<h4>
+					<i class="dw" ></i>长按二维码保存到手机相册
+				</h4>
+			</div>
+			
+			<a id="tttt"></a>
+			<p class="inviting-tips"><em>推广注册：</em>注册即送20TFC
+			</p>
+			<p class="inviting-tipst">1.每邀请以为好友完成注册。且该好友完成实名认证，就可以获得10TFC的奖励。</p>
+			<p class="inviting-tipst">2.你邀请的好友，其邀请一个好友完成注册，即二级好友并完成实名认证，你将获得5TFC 的奖励。</p>
+			<p class="inviting-tips"><em>冻结激活：</em>激活获赠的TFC币，需要实名认证并且满足以下2个条件其中一条即可激活，1.免费申请银联刷卡pos机绑定SN到app，下载pos官方app用自己的信息激活pos机单笔首次刷卡5000元/笔，即可激活。(注:POS机绑定均为个人信息资料刷卡到账也是到账到自己银行卡，十分安全）2.app或者官网购买BYL 挖矿路由器绑定SN到app激活即可解锁，激活后增加算力每天路由器在线时长增加TFC挖矿数量
+			</p>
+			<p class="inviting-tips"><em>算力激活：</em>绑定设备同时获得算力值，提高挖矿数量；直接邀请一人增加10算力，间接推荐一人增加5算力，邀请的人越多算力越大！
+			</p>
+		</div>
+		<!-- 新增 -->
+		<div class="tc inviting-card">
+			<h3>生成邀请卡</h3>
+			<p>截图发给好友并叮嘱TA注册成为原力会员</p>
+		</div>
+		<div class="dn posterBox">
+			<div class="tc poster-con">
+				<img src="{$Think.const.PUB_IMG}/htitle.png" alt="" class="ht">
+				<p class="ht-txt">区块链交流智能平台</p>
+				<div class="poster-main">
+					<div class="poster-one">
+						<h4>我的邀请号码</h4>
+						<h3>{$phone|substr=###,0,3}****{$phone|substr=###,7}</h3>
+						<p>“莫愁这里无知己，天下谁人不识君”</p>
+						<p><i class="line"></i></p>
+					</div>
+					<div class="poster-two">
+						<h4>我是“{$info['realname']}”</h4>
+						<h4>我在FORCE等你，不见不散！</h4>
+						<p>
+							<img src="{:U('user/qrcode')}?url={:U('login/register/mobile/'.$phone,'','.html',true)}" alt="">
+						</p>
+						<p>扫码注册FORCE交易平台</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="{$Think.const.PUB_JS}set.js"></script>
+	<script src="{$Think.const.PUB_JS}jquery-1.8.2.min.js"></script>
+	<script src="{$Think.const.PUB_LIB}layer/layer.js"></script>
+	<script src="{$Think.const.PUB_JS}global.js"></script>
+	<script src="{$Think.const.PUB_LIB}qrcode.min.js"></script>
+	<script>
+	$(function(){
+		// var url = "http://{$Think.server.HTTP_HOST}/index.php/login/register/mobile/{$phone}.html" ;
+		// new QRCode(document.getElementById('qrcode'), url);
+	})
+	
+	/**
+	 * 根据图片生成画布
+	 */
+	function convertImageToCanvas(image) {
+		var canvas = document.createElement("canvas");
+		canvas.width = image.width;
+		canvas.height = image.height;
+		canvas.getContext("2d").drawImage(image, 0, 0);
+		return canvas;
+	}
+	/**
+	 * 下载图片
+	 */
+	function down() {
+		//var sampleImage = $('#qrcode img'),
+		var sampleImage = document.getElementsByTagName("img");
+		var canvas = convertImageToCanvas(sampleImage[0]);
+		
+		url = canvas.toDataURL("image/png");//PNG格式
+		 //将生成的二维码转换成图片格式
+		 // var canvas = qrcode.find('canvas').get(0);
+		$('#qrcode').find('img').attr('src', canvas.toDataURL('image/png'));
+		//以下代码为下载此图片功能
+		var triggerDownload = $("#tttt").attr("href", url).attr("download", "myinvite.png");
+		triggerDownload[0].click();
+	//    triggerDownload.remove();
+	}
+		function showmsg(msg) { //消息框
+		var c = $(".showmsg").attr("class");
+		if (c == 'showmsg') {
+		$(".showmsg").fadeIn(5000);
+		$(".showmsg>span").text(msg);
+		} else {
+		var htm = '<div class="showmsg showmsgs"><span>' + msg + '</span></div>';
+		$("body").append(htm);
+		$(".showmsg").fadeIn(100);
+		}
+		setTimeout(function() {
+			$(".showmsg").fadeOut(100);
+			},1000);
+		}
+		function poster(){ //生成海报弹窗
+			var html=$('.posterBox').html();
+			var index = layer.open({
+				type: 1,
+				content: html,
+				skin: 'poster',
+				title:false,
+				fixed:true,
+				closeBtn: 0,
+				offset: 'b',
+				anim: 2,
+				isOutAnim:true,
+				success: function(layero, index){
+					showmsg('截图发给好友并叮嘱TA注册成为原力会员');
+					$('.poster').click(function(){
+						layer.close(layer.index); 
+					});
+				}
+			});
+		};
+	</script>
+		<script src="https://static.ydbimg.com/API/YdbOnline.js" type="text/javascript"></script>
+<script>
+$(function(){
+	var YDB = new YDBOBJ();
+	YDB.SetGlobal(0,0,'','',0,'10/0/0',1,0,'',0,'#efefef');
+
+	 $('.inviting-card').click(function(){
+	 	poster();
+	 });
+})
+</script>
+</html>

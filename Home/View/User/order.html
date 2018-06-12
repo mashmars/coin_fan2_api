@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
+	<title>订单管理</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<link rel="stylesheet" href="{$Think.const.PUB_CSS}common.css">
+	<link rel="stylesheet" href="{$Think.const.PUB_CSS}use.css">
+	<script type="text/javascript" src="{$Think.const.PUB_JS}iscroll.js"></script>
+	</head>
+	<body>
+		<header>
+	<h3 class="tc lhbg">
+		<i class="go"></i>
+		订单查询
+	</h3>
+</header>
+		<div class="main orderManagement">
+			<div class="order-bd" id="wrapper">
+				<div id="scroller">
+					<!-- <div id="pullDown">
+						<span class="pullDownIcon"></span>
+						<span class="pullDownLabel">下拉刷新...</span>
+					</div> -->
+					<div class="routerBox">
+					<if condition='$res eq null'>
+					<h3>暂无订单</h3>
+					<else />
+						<h3>订单明细<i></i></h3>
+						<ul id="routerList" class="orderlist">
+							<volist name='res' id='vo'>
+							<li>
+								<div class="flex-box list-con">
+									<if condition="$vo['type'] eq 1">
+									<img src="{$Think.const.PUB_IMG}02.png" alt="">
+									<else />
+									<img src="{$Think.const.PUB_IMG}01.png" alt="">
+									</if>
+									<div class="flex-1">
+										<h4 class="ovh">
+											<span class="fl">{$vo.name}</span>
+											<if condition="$vo['type'] eq 2">
+											<span class="fr">￥{$vo['num']*599}</span>
+											</if>
+										</h4>
+										<p class="ovh">
+											<span class="fl">下单时间：{$vo.createdate|date='m/d H:i',###}</span>
+											<span class="fr">x{$vo.num}</span>
+										</p>
+										<p>订单编号：{$vo['createdate']|substr=###,3}</p>
+										<if condition="$vo.status eq 2">
+											<elseif condition="$vo.status eq 1"/>
+												<p>快递名称：{$vo['kuaidi']?$vo['kuaidi']:'等待发货'}</p>
+												<p>快递单号：{$vo['danhao']?$vo['danhao']:'等待发货'}</p>											
+											<elseif condition="$vo.status eq 0" />
+												<p>快递名称：已作废请重新申请</p>
+												<p>快递单号：已作废请重新申请</p>											
+										</if>
+									</div>
+								</div>
+								<p class="ovh states"><span class="fr"><if condition="$vo.status eq 2">下单成功<elseif condition="$vo.status eq 1"/>已发货<elseif condition="$vo.status eq 0" />已作废</if></span></p>
+							</li>
+							</volist>
+						</ul>
+					</if>
+					</div>
+					
+					<!-- <div id="pullUp">
+						<span class="pullUpIcon"></span>
+						<span class="pullUpLabel">上拉加载更多...</span>
+					</div> -->
+				</div>
+			</div>
+		</div>
+		<div class="mask"></div>
+	</body>
+	<script src="{$Think.const.PUB_JS}set.js"></script>
+	<script src="{$Think.const.PUB_JS}jquery-1.8.2.min.js"></script>
+	<script src="{$Think.const.PUB_JS}global.js"></script>
+	<script src="{$Think.const.PUB_LIB}layer/layer.js"></script>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
+	<title>聊天</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<link rel="stylesheet" href="{$Think.const.PUB_CSS}common.css">
+	<link rel="stylesheet" href="{$Think.const.PUB_CSS}use.css">
+	</head>
+	<body>
+		<div class="main chatbox">
+		<iframe src="http://talk.tfp.kim/home/login/index/phone/{$phone}"width="100%" height="90%"style="position: fixed;bottom: 1.39889rem;top:0;border:none;"></iframe>
+			<!--<div class="chatcon">
+				<p><img src="{$Think.const.PUB_IMG}ku.png" alt=""></p><br>
+				<h4>该功能正在开发中...</h4>
+			</div>-->
+		</div>
+		<footer>
+	<ul class="tc ovh">
+		<li >
+			<a href="/">
+				<i class="home"></i>
+				<span>首页</span>
+			</a>
+		</li>
+		<li>
+			<a href="{:U('finance/index')}">
+				<i class="wallet"></i>
+				<span>钱包</span>
+			</a>
+		</li>
+		<li class="active">
+			<a href="{:U('chat/index')}">
+				<i class="chat"></i>
+				<span>聊天</span>
+			</a>
+		</li>
+		<li>
+			<a href="{:U('user/index')}">
+				<i class="use"></i>
+				<span>我的</span>
+			</a>
+		</li>
+	</ul>
+</footer>
+
+	</body>
+	<script src="{$Think.const.PUB_JS}set.js"></script>
+</html>

@@ -1,0 +1,118 @@
+#main {
+  width: 100%;
+  background: white;
+  color: #343333;
+  font-size: 0.36111111rem;
+}
+#main .info {
+  height: 1.25rem;
+  line-height: 1.25rem;
+  border-bottom: 1px solid #DEDEDE;
+}
+#main .info span {
+  display: inline-block;
+  width: 2.22222222rem;
+  height: 0.97222222rem;
+  line-height: 0.97222222rem;
+  text-align: right;
+}
+#main .info span.mr {
+  width: 1.875rem;
+  margin-left: 0.41667rem;
+  padding-right: 0.34722222rem;
+}
+#main .info input {
+  width: 6.94444444rem;
+  height: 0.97222222rem;
+  border: 0;
+}
+#main .info div.area {
+  display: inline-block;
+  vertical-align: middle;
+}
+#main .info div.area span:first-child {
+  width: 6.66666667rem;
+  margin: 0;
+  text-align: left;
+  color: #aaa;
+}
+#main .info div.area span:last-child {
+  width: 0.69444444rem;
+}
+#main .info img {
+  float: right;
+  width: 0.69444444rem;
+  margin-top: 0.25rem;
+  margin-right: 0.34722222rem;
+}
+#main p {
+  width: calc(9.44444444rem);
+  margin-left: 0.34722222rem;
+  margin-top: 0.27777778rem;
+  font-size: 0.33333333rem;
+  color: #aaa;
+}
+#main .btn {
+  width: 100%;
+  height: 1.25rem;
+  margin-top: 0.55555556rem;
+}
+#main .btn span {
+  display: inline-block;
+  line-height: 1.25rem;
+  width: 4.44444444rem;
+  text-align: center;
+  margin-left: 0.34722222rem;
+  color: white;
+  border-radius: 0.13888889rem;
+}
+#main .btn span:first-child {
+  background: #b5b5b5;
+}
+#main .btn span:last-child {
+  background: #e4ad2f;
+}
+#cbotypes {
+  display: inline-block;
+}
+#cbotypes div {
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+}
+#cbotypes input {
+  display: none;
+}
+.span {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #ddd;
+  margin-right: 5px;
+  border-radius: 50%;
+  -webkit-transform: translateY(3px);
+}
+#cbotypes input:checked + .span {
+  border: 1px solid #e4ad2f;
+}
+#cbotypes input:checked + .span:after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  -webkit-transform: translate3D(5px, 5px, 0);
+  transform: translate3D(5px, 5px, 0);
+  border-radius: 50%;
+  background: #e4ad2f;
+}
+.buybox{overflow: hidden;}
+.buybox span{float: left;line-height: 1.25rem!important;}
+.buy{float: left;width: 60%;overflow: hidden;padding-right: 0.41667rem;font-size: 14px;}
+.buy input{outline: none;}
+.buy .min,.buy .add{width:25px!important;height:25px!important;}
+.buy .text_box{width:35px!important;height:25px!important;text-align: center;}
+.dn{display: none!important;}
+.total{width:auto!important;height:auto!important;}
+.total em{font-size: .36rem;color:red;}
+.addAddress{padding-bottom: .4rem;}
+.alipayTxt{font-size: .24rem!important;}
